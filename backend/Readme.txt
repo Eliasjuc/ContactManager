@@ -28,21 +28,18 @@ server.js - allows connection to mongodb as well as allow remote connections.
 
 
 
-How to start the server:
-This was made using Visual Studio Code, so assuming you are using that or something similar...
+How to start the server (testing):
+This was made using Visual Studio Code, so assuming you are using that or something similar on a windows machine...
 
-1. Navigate terminal to the backend directory
-2. type the following:
-   nodemon server
-3. You should see:
-	Server is running on port: 3000
-	MongoDB database connection established successfully
-   If you see error @notjohn on discord
-
-you should be able to connect to the server via localhost:3000 or the specified port.
-
-nodemon is a script that will update the server every time you save a file. To exit, press ctrl + c
-
+-enable scripts by going into an admin powershell terminal and type "Set-ExecutionPolicy unrestricted"
+-go into visual studio code, open the terminal
+-change your current directory to backend
+-type in "npm install -g nodemon"
+-after it installs, and while still in the backend directory, type "nodemon server"
+-if it says:
+"Server is running on port: 3000
+MongoDB database connection established successfully"
+we should be good. (press ctrl + c to exit nodemon)
 
 How to send requests to server:
 https://youtu.be/7CqJlxBYj-M?t=1830

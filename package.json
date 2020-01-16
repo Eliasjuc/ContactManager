@@ -1,0 +1,19 @@
+{
+  "name": "contact_manager",
+  "version": "1.0.0",
+  "description": "ContactManager",
+  "main": "login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bpatt9690/ContactManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bpatt9690/ContactManager/issues"
+  },
+  "homepage": "https://github.com/Bpatt9690/ContactManager#readme"
+}
