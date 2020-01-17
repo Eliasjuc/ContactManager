@@ -1,2 +1,2 @@
-Needed for git
+Needed to intilaize git repo
 
