@@ -3,16 +3,15 @@ import { Button, Form, Icon, Message, Segment } from 'semantic-ui-react'
 import axios from 'axios'
 import cookie from "js-cookie"
 
-const INITIAL_USER = {
-  email: "",
-  password: ""
-
+const INITIAL_USER = { 
+  password: "",
+  email: ""
 }
 
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
   cookie.set("token", token);
-  //Router.push("/account");
+  //Router.push(`/contacts?{token}`);
 }
 
 function catchErrors(error, displayError) {
@@ -65,7 +64,7 @@ function Login() {
     try {
       setLoading(true)
       setError('')
-      const url = "http://localhost:3000/api/login"                      //This URL will need to be changed 
+      const url = "http://localhost:3000/users/"                      //This URL will need to be changed 
       const payload = { ...user}
       console.log(user)
       const response = await axios.get(url, payload)
@@ -88,7 +87,7 @@ function Login() {
       content="Login in with email and password"
       color="blue"
     />
-    <Form error={Boolean(error)}  onSubmit={handleSubmit}> 
+    <Form disabled={disabled} error={Boolean(error)}  onSubmit={handleSubmit}> 
       <Message 
         error
         header="Error!"

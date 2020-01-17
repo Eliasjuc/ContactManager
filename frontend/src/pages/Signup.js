@@ -5,9 +5,10 @@ import cookie from "js-cookie"
 
 
 const INITIAL_USER = {
-  name: "",
-  email: "",
-  password: ""
+  username: "",
+  password: "",
+  email: ""
+  
 
 }
 //This will give the user a token we can track and navigate to the contacts page
@@ -53,8 +54,8 @@ function Signup() {
   }, [user])
 
   function handleChange(event) {
-    const { name, value } = event.target
-    setUser(prevState => ({...prevState, [name]: value }) ) 
+     const { name, value } = event.target
+     setUser(prevState => ({...prevState, [name]: value }) ) 
   }
 
   async function handleSubmit(event) {
@@ -64,7 +65,7 @@ function Signup() {
     try {
       setLoading(true)
       setError('')
-      const url = "http://localhost:3000/api/signup"               //This URL will need to be changed         
+      const url = "http://localhost:3000/users/add"               //This URL will need to be changed         
       const payload = { ...user} 
       console.log(user)
       const response = await axios.post(url, payload)          //Call the API to post the user data from the form.
@@ -101,8 +102,8 @@ function Signup() {
           iconPosition="left"
           label="Name"
           placeholder="Name"
-          name="name"
-          value={user.name}
+          name="username"
+          value={user.username}
           onChange={handleChange}
         />
         <Form.Input 
