@@ -14,7 +14,7 @@ const INITIAL_USER = {
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
   cookie.set("token", token);
-  //Router.push("/account");
+  //window.location.href = '/contacts'
 }
 
 function catchErrors(error, displayError) {
@@ -75,7 +75,6 @@ function Signup() {
     } finally {
       setLoading(false)
     }
-
   }
 
 

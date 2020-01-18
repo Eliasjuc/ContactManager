@@ -32,4 +32,28 @@ Router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+Router.route('/:id').delete((req, res) => {
+    Contact.findByIdAndDelete(req.params.id)
+        .then( () => res.json("Contact deleted."))
+        .catch((err) => res.status(400).json("Error " + err))
+})
+
+Router.route('/edit/:id').post((req, res) => {
+    Contact.findById(req.params.id).then(contacts => {
+        //Update contact with new information from req
+        contacts.user= req.body.user;
+        contacts.firstname = req.body.firstname;
+        contacts.lastname = req.body.lastname;
+        contacts.cellphone = req.body.cellphone;
+        contacts.homephone = req.body.homephone;
+        contacts.workphone = req.body.workphone;
+        contacts.email = req.body.email;
+
+        contacts.save()
+            .then(() => res.json("Contact updated"))
+            .catch(err => res.status(400).json("Error: " + err));
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = Router;
