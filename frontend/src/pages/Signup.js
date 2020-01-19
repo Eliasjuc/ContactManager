@@ -3,13 +3,12 @@ import { Button, Form, Icon, Message, Segment } from 'semantic-ui-react'
 import axios from 'axios'
 import cookie from "js-cookie"
 
-
 const INITIAL_USER = {
   username: "",
   password: "",
+  passwordVerify: "",
   email: ""
   
-
 }
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
@@ -40,7 +39,6 @@ function catchErrors(error, displayError) {
 
 }
 
-
 function Signup() {
   const [user, setUser] = React.useState(INITIAL_USER)
   const [disabled, setDisabled] = React.useState("true")
@@ -58,22 +56,40 @@ function Signup() {
      setUser(prevState => ({...prevState, [name]: value }) ) 
   }
 
+  async function passwordCompare(p1,p2){
+
+    return p1.localeCompare(p2);
+
+  }
+
   async function handleSubmit(event) {
+
     event.preventDefault()
 
-    //make request to sign up user
-    try {
-      setLoading(true)
-      setError('')
-      const url = "http://localhost:3000/users/add"               //This URL will need to be changed         
-      const payload = { ...user} 
-      console.log(user)
-      const response = await axios.post(url, payload)          //Call the API to post the user data from the form.
-      handleLogin(response.data)
-    } catch (error) {
-      catchErrors(error)
-    } finally {
-      setLoading(false)
+    if(passwordCompare(user.password, user.passwordVerify) == 0){
+
+      try {
+        setLoading(true)
+        setError('');
+        const url = "http://localhost:3000/users/add"               //This URL will need to be changed         
+        const payload = { ...user} 
+        console.log(user)
+        const response = await axios.post(url, payload)          //Call the API to post the user data from the form.
+        handleLogin(response.data)
+        }
+
+        catch (error) {
+          catchErrors(error);
+        }
+
+        finally {
+          setLoading(false)
+        }
+    }   
+
+    else {
+      // need to add react error message regarding passwords here
+  
     }
   }
 
@@ -125,6 +141,17 @@ function Signup() {
           name="password"
           type="password"
           value={user.password}
+          onChange={handleChange}
+        />
+          <Form.Input 
+          fluid
+          icon="lock"
+          iconPosition="left"
+          placeholder="Re-Type Password"
+          label="Re-Type Password"
+          name="passwordVerify"
+          type="password"
+          value={user.passwordVerify}
           onChange={handleChange}
         />
         <Button

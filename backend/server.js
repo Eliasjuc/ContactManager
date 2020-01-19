@@ -28,8 +28,8 @@ connection.once('open', () => {
 
 // Allows router files to be accessed via a URL
 // i.e http://localhost:3000/contacts/add
-const contactsConnection = require('./routers/contacts');
-const userConnection = require('./routers/users');
+const contactsConnection = require('./routers/contactsAPI');
+const userConnection = require('./routers/usersAPI');
 app.use('/contacts', contactsConnection);
 app.use('/users', userConnection);
 
