@@ -56,7 +56,7 @@ function Signup() {
      setUser(prevState => ({...prevState, [name]: value }) ) 
   }
 
-  async function passwordCompare(p1,p2){
+  function passwordCompare(p1,p2){
 
     return p1.localeCompare(p2);
 
@@ -66,7 +66,7 @@ function Signup() {
 
     event.preventDefault()
 
-    if(passwordCompare(user.password, user.passwordVerify) == 0){
+    if(passwordCompare(user.password, user.passwordVerify) === 0){
 
       try {
         setLoading(true)
@@ -89,7 +89,7 @@ function Signup() {
 
     else {
       // need to add react error message regarding passwords here
-  
+      setError("Passwords do not match.")
     }
   }
 
@@ -155,6 +155,7 @@ function Signup() {
           onChange={handleChange}
         />
         <Button
+          disabled={disabled || loading}
           icon="signup"
           type="submit"
           color="orange"

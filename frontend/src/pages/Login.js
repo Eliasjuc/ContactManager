@@ -34,6 +34,7 @@ function catchErrors(error, displayError) {
     errorMsg = error.message;
     console.error("Error message", errorMsg);
   }
+  displayError(errorMsg);
 
 }
 
@@ -70,11 +71,10 @@ function Login() {
       const response = await axios.get(url, payload)
       handleLogin(response.data)
     } catch (error) {
-      catchErrors(error)
+      catchErrors(error, setError)
     } finally {
       setLoading(false)
     }
-
   }
 
   return (
@@ -87,7 +87,7 @@ function Login() {
       content="Login in with email and password"
       color="blue"
     />
-    <Form disabled={disabled} error={Boolean(error)}  onSubmit={handleSubmit}> 
+    <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}> 
       <Message 
         error
         header="Error!"
@@ -117,6 +117,7 @@ function Login() {
           onChange={handleChange}
         />
         <Button
+          disabled={disabled || loading}
           icon="sign in"
           type="submit"
           color="orange"
