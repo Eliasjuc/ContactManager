@@ -10,8 +10,7 @@ Router.route('/').get((req, res) => {
 Router.route('/add').post((req, res) => {
     
     const user = req.body.user;
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
+    const name = req.body.name;
     const cellphone = req.body.cellphone;
     const homephone = req.body.homephone;
     const workphone = req.body.workphone;
@@ -19,8 +18,7 @@ Router.route('/add').post((req, res) => {
 
     const newContact= new Contact({
         user,
-        firstname,
-        lastname ,
+        name,
         cellphone,
         homephone,
         workphone,
@@ -42,8 +40,7 @@ Router.route('/edit/:id').post((req, res) => {
     Contact.findById(req.params.id).then(contacts => {
         //Update contact with new information from req
         contacts.user= req.body.user;
-        contacts.firstname = req.body.firstname;
-        contacts.lastname = req.body.lastname;
+        contacts.name = req.body.name;
         contacts.cellphone = req.body.cellphone;
         contacts.homephone = req.body.homephone;
         contacts.workphone = req.body.workphone;

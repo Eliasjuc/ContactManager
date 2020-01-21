@@ -9,14 +9,10 @@ const contactSchema = new Schema({
         require: true,
     },
 
-    firstname: {
+    name: {
         type: String,
         minlength: 1
-    },
-    lastname: {
-        type: String,
-    },
-    
+    },   
     cellphone: {
         type: String,
         minlength: 1
