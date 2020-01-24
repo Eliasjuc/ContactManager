@@ -2,14 +2,13 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const path = require('path');
 
 // Allows the existence of the ".env" file.
 require('dotenv').config();
 
 // Initiates express server and defines a port.
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.port || 3000;
 
 //Middleware, allows us to parse json
 app.use(cors());
@@ -33,14 +32,6 @@ const contactsConnection = require('./routers/contactsAPI');
 const userConnection = require('./routers/usersAPI');
 app.use('/contacts', contactsConnection);
 app.use('/users', userConnection);
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('../frontend/build'));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-    })
-}
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)
