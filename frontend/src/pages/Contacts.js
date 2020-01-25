@@ -4,14 +4,15 @@ import axios from 'axios'
 import { CommentActions } from 'semantic-ui-react'
 
 
-
 class Contacts extends React.Component {
     constructor() {
         super()
         this.state = {contacts: []}
     }
     componentDidMount() {
-        axios.get("http://localhost:3000/contacts") 
+        // "https://still-stream-56632.herokuapp.com/"  "http://localhost:3000/"
+        const url = "https://still-stream-56632.herokuapp.com/"
+        axios.get(`${url}api/contacts`) 
             .then( response => {
                 const contacts = response.data
                 this.setState({ contacts })
@@ -20,7 +21,6 @@ class Contacts extends React.Component {
     
     render(){    
         let contacts = this.state.contacts
-        console.log(contacts)
         return (
             <div>
                 {contacts.map(contact => 
