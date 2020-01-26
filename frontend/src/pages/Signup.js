@@ -13,7 +13,7 @@ const INITIAL_USER = {
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
   cookie.set("token", token);
-  //window.location.href = '/contacts'
+  window.location.href = '/contacts'
 }
 
 function catchErrors(error, displayError) {
@@ -74,7 +74,6 @@ function Signup() {
         // "https://still-stream-56632.herokuapp.com/"
         const url = "http://localhost:3000/api/users/add"               //This URL will need to be changed         
         const payload = { ...user} 
-        console.log(user)
         const response = await axios.post(url, payload)          //Call the API to post the user data from the form.
         handleLogin(response.data)
         }

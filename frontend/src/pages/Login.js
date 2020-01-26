@@ -8,11 +8,14 @@ const INITIAL_USER = {
   email: ""
 }
 
+var id = ''
+
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
   cookie.set("token", token);
-  //window.location.href = '/contacts'
+  window.location.href = '/contacts'
 }
+
 
 function catchErrors(error, displayError) {
   let errorMsg;
@@ -66,10 +69,10 @@ function Login() {
       setLoading(true)
       setError('')
       // "https://still-stream-56632.herokuapp.com/"
-      const url = "http://localhost:3000/api/users/"                      //This URL will need to be changed 
+      const url = "http://localhost:3000/api/users/login"                      //This URL will need to be changed 
       const payload = { ...user}
       console.log(user)
-      const response = await axios.get(url, payload)
+      const response = await axios.post(url, payload)
       handleLogin(response.data)
     } catch (error) {
       catchErrors(error, setError)

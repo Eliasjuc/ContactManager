@@ -1,8 +1,10 @@
 const Router = require('express').Router();
 let Contact = require('../models/contact.model');
 
+
+
 Router.route('/').get((req, res) => {
-    Contact.find()
+    Contact.find( {user: req.query.user} )
         .then(contacts => res.json(contacts))
         .catch(err => res.status(400).json('Error ' + err));
 });

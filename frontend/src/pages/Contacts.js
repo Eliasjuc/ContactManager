@@ -2,7 +2,7 @@ import React from 'react'
 import Contact from '../components/contact_component'
 import axios from 'axios'
 import { CommentActions } from 'semantic-ui-react'
-
+import cookie from 'js-cookie'
 
 class Contacts extends React.Component {
     constructor() {
@@ -10,9 +10,13 @@ class Contacts extends React.Component {
         this.state = {contacts: []}
     }
     componentDidMount() {
+
+        //Get contacts by user id in cookie named token
+        var id = cookie.get('token')
+        id = JSON.parse(id).user.id
         // "https://still-stream-56632.herokuapp.com/"  "http://localhost:3000/"
-        const url = "https://still-stream-56632.herokuapp.com/"
-        axios.get(`${url}api/contacts`) 
+        const url = "http://localhost:3000/"
+        axios.get(`${url}api/contacts/?user=${id}`) 
             .then( response => {
                 const contacts = response.data
                 this.setState({ contacts })
@@ -22,9 +26,9 @@ class Contacts extends React.Component {
     render(){    
         let contacts = this.state.contacts
         return (
-            <div>
+            <div key={contacts._id}>
                 {contacts.map(contact => 
-                    <Contact key={contacts._id}
+                    <Contact 
                         contact={contact}
                     />
                     
