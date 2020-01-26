@@ -55,4 +55,31 @@ Router.route('/edit/:id').post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+// Search for a keyword in the "name" field given a user and "name" 
+Router.route('/search/').get((req, res) => {
+    Contact.find( {user: req.body.user, name: {$regex:req.body.name, $options: 'i'}
+    })
+
+    .then(contacts => res.json(contacts))
+    .catch(err => res.status(400).json('Error ' + err));
+});
+
+// Searches all fields given a "name" and user. 
+Router.route('/search/all').get((req, res) => {
+   
+    Contact.find( {user: req.body.user, 
+                   $or: [{name: {$regex:req.body.name, $options: 'i'}},
+                   {homephone: {$regex:req.body.name, $options: 'i'}},
+                   {cellphone: {$regex:req.body.name, $options: 'i'}},
+                   {workphone: {$regex:req.body.name, $options: 'i'}},
+                   {email: {$regex:req.body.name, $options: 'i'}}]
+                })
+
+    .then(contacts => res.json(contacts))
+    .catch(err => res.status(400).json('Error ' + err));
+});
+
+
+
+
 module.exports = Router;
