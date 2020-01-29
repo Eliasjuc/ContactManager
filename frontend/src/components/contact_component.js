@@ -27,19 +27,16 @@ async function handleDelete() {
 }
 
 
-class Contact extends React.Component {
-
-    render(){    
+function Contact(props) {  
         return (
             <>
-
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"/>
                 <List>
-                    <Icon  name='address book' /> <p>Name: {this.props.contact.name} </p> 
-                    <Icon  name='phone' /> <p>Cell Phone: {this.props.contact.cellphone} </p> 
-                    <Icon  name='phone' /> <p>Home Phone: {this.props.contact.homephone} </p> 
-                    <Icon  name='phone' /> <p>Work Phone: {this.props.contact.workphone} </p> 
-                    <Icon  name='envelope' /> <p>Email: {this.props.contact.email} </p>
+                    <Icon  name='address book' /> <p>Name: {props.contact.name} </p> 
+                    <Icon  name='phone' /> <p>Cell Phone: {props.contact.cellphone} </p> 
+                    <Icon  name='phone' /> <p>Home Phone: {props.contact.homephone} </p> 
+                    <Icon  name='phone' /> <p>Work Phone: {props.contact.workphone} </p> 
+                    <Icon  name='envelope' /> <p>Email: {props.contact.email} </p>
                 </List>
                 <Button floated="right" icon="pencil" onClick={handleEdit} /> <br /> <br />
                 <Modal trigger={<Button floated="right" >Edit</Button>} closeIcon>
@@ -64,5 +61,5 @@ class Contact extends React.Component {
 
         )
     }
-}
+
 export default Contact
