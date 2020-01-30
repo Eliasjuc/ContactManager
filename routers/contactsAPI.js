@@ -56,7 +56,7 @@ Router.route('/edit/:id').post((req, res) => {
 });
 
 // Search for a keyword in the "name" field given a user and "name" 
-Router.route('/search/').get((req, res) => {
+Router.route('/search/').post((req, res) => {
     Contact.find( {user: req.body.user, name: {$regex:req.body.name, $options: 'i'}
     })
 
