@@ -8,8 +8,10 @@ import catchErrors from './Login'
 
 //Get the id from the login token
 var id = cookie.get('token')
-id = JSON.parse(id).user.id
-
+console.log(id)
+if (id){
+    id = JSON.parse(id).user.id
+}
 
 function Contacts() {
     const INITIAL_CONTACT = {

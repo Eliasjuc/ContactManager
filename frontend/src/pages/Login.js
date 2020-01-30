@@ -8,7 +8,7 @@ const INITIAL_USER = {
   email: ""
 }
 
-var id = ''
+
 
 //This will give the user a token we can track and navigate to the contacts page
 function handleLogin(token) {
