@@ -91,7 +91,6 @@ function Contacts() {
             const payload = {...contact}
             const response = await axios.post(`${url}api/contacts/add`, payload)
             setContact("")
-            setContacts(contacts.concat(payload))
             handleOpen(false)
         } catch (error) {
             console.log(error)
