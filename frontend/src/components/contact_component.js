@@ -30,7 +30,6 @@ async function handleDelete() {
 function Contact(props) {  
         return (
             <>
-                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"/>
                 <List>
                     <Icon  name='address book' /> <p>Name: {props.contact.name} </p> 
                     <Icon  name='phone' /> <p>Cell Phone: {props.contact.cellphone} </p> 

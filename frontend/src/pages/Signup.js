@@ -97,7 +97,7 @@ function Signup() {
 
   return (
     <>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"/>
+    
     <Message 
       attached
       icon="settings"

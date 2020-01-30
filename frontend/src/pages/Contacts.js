@@ -38,13 +38,6 @@ function Contacts() {
     
     
 
-    const modalStyle = {
-        modal: {
-            top: "10%",
-            textalign: "center"       
-        }
-    }
-
     //If there is no login token, return to home page
     if (!id) {
         window.location.href = "/"
@@ -108,6 +101,7 @@ function Contacts() {
     }
         return (
             <>
+            <link rel="stylesheet" href='Contacts.css' type="text/css" />
             <div>
             <Form.Input 
                 float="left"
@@ -122,8 +116,8 @@ function Contacts() {
             </div>
             <Modal 
                 trigger={<Button onClick={closeModal} floated="right" >Add Contact</Button>} 
-                open={modalOpen}
-                style={modalStyle}             
+                open={modalOpen}  
+                className="createContactForm"          
             >
                 <Segment>
                     <Header content={"Create Contact"} /> 
