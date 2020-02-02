@@ -15,10 +15,8 @@ async function handleEdit(event, props) {
 async function handleDelete(event, props) {
     event.preventDefault();
 
-    const id = props.user.id
-
     try {
-        await axios.delete(
+        const response = await axios.delete(
             `http://localhost:3000/api/contacts/$id`
         );
         
