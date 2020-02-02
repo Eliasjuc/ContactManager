@@ -83,7 +83,7 @@ function Contacts() {
             setLoading(true)
             const payload = {...contact}
             const response = await axios.post(`${url}api/contacts/add`, payload)
-            setContact("")
+            setContact(INITIAL_CONTACT)
             handleOpen(false)
         } catch (error) {
             console.log(error)
