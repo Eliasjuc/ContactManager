@@ -12,8 +12,6 @@ async function handleEdit(event, props) {
     }
 }
 
-
-
 async function handleDelete(event, props) {
     event.preventDefault();
 
@@ -27,7 +25,6 @@ async function handleDelete(event, props) {
 
     }
 }
-
 
 function Contact(props) {
     const [show, setShow] = React.useState(false);
@@ -58,7 +55,7 @@ function Contact(props) {
                 <Modal 
                 trigger={<Button onClick={closeModal} floated="right" >Edit Contact</Button>} 
                 open={modalOpen}  
-                className="createContactForm"          
+                className="editContactFrom"          
             >
 
                      <Form error={Boolean(error)} loading={loading}>
