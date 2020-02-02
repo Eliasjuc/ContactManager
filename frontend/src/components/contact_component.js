@@ -12,6 +12,8 @@ async function handleEdit(event, props) {
     }
 }
 
+
+
 async function handleDelete(event, props) {
     event.preventDefault();
 
@@ -25,6 +27,7 @@ async function handleDelete(event, props) {
 
     }
 }
+
 
 function Contact(props) {
     const [show, setShow] = React.useState(false);
@@ -65,7 +68,7 @@ function Contact(props) {
                             iconPosition="left"
                             label="Name"
                             placeholder="Name"
-                            name="name"
+                            name="Name"
                             value={props.contact.name}
                             onChange={handleEdit}
                         />
