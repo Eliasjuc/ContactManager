@@ -1,9 +1,9 @@
 import React from 'react'
 import Contact from '../components/contact_component'
 import axios from 'axios'
-import { Button, Form, Modal, Segment, Message, Header, Card } from 'semantic-ui-react'
+import { Button, Form, Modal, Segment, Message, Header } from 'semantic-ui-react'
 import cookie from 'js-cookie'
-import catchErrors from './Login'
+
 
 
 //Get the id from the login token
@@ -26,7 +26,6 @@ function Contacts() {
     const [contacts, setContacts] = React.useState([])
     const [contact, setContact] = React.useState(INITIAL_CONTACT)
     const [searchContact, setSearchContact] = React.useState("")
-    const [disabled, setDisabled] = React.useState("true")
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState('')
     const [modalOpen, handleOpen] = React.useState(false)
@@ -66,6 +65,7 @@ function Contacts() {
              setContacts(response.data)
          } catch (error) {
              console.error(error)
+             setError(error)
              setContacts([]);
          }
      }
@@ -82,11 +82,12 @@ function Contacts() {
         try {
             setLoading(true)
             const payload = {...contact}
-            const response = await axios.post(`${url}api/contacts/add`, payload)
+            await axios.post(`${url}api/contacts/add`, payload)
             setContact(INITIAL_CONTACT)
             handleOpen(false)
         } catch (error) {
             console.log(error)
+            setError(error)
         } finally {
             setLoading(false)
         }

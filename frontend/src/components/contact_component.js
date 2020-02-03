@@ -1,46 +1,68 @@
 import React from 'react'
-import { List, Header, Form, Divider, Button, Modal, Icon } from 'semantic-ui-react'
+import { List, Header, Form, Divider, Button, Modal, Icon, Segment } from 'semantic-ui-react'
 import axios from 'axios'
 
-async function handleEdit(event, props) {
-    event.preventDefault();
 
-    try {
-
-    } catch(error){
-
-    }
-}
-
-async function handleDelete(event, props) {
-    event.preventDefault();
-
-    try {
-        const response = await axios.delete(
-            `http://localhost:3000/api/contacts/$id`
-        );
-        
-        console.log(`user deleted`);
-    } catch(error) {
-
-    }
-}
 
 function Contact(props) {
-    const [show, setShow] = React.useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);  
+    const INITIAL_CONTACT = {
+        user: props.contact.user,
+        name: props.contact.name,
+        cellphone: props.contact.cellphone,
+        homephone: props.contact.homephone,
+        workphone: props.contact.workphone,
+        email: props.contact.email,
+    }
 
 
-    const [contacts, setContacts] = React.useState([])
-    const [searchContact, setSearchContact] = React.useState("")
-    const [disabled, setDisabled] = React.useState("true")
+    const [contact, setContact] = React.useState(INITIAL_CONTACT) 
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState('')
     const [modalOpen, handleOpen] = React.useState(false)
 
+    // "https://still-stream-56632.herokuapp.com/"  "http://localhost:3000/"
+    const url = "http://localhost:3000/"
+
+
+    function handleContactChange(event) {
+        const { name, value } = event.target
+        setContact(prevState => ({...prevState, [name]: value }) ) 
+     }
+
+    async function handleEdit(event) {
+        event.preventDefault();
+    
+        try {
+            setLoading(true)
+            const payload = {...contact}
+            await axios.post(`${url}api/contacts/edit/${props.contact._id}`, payload)
+            closeModal(true)
+            setContact(INITIAL_CONTACT)
+        } catch(error){
+            setError(true)
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+    
+    async function handleDelete(event) {
+        event.preventDefault();
+    
+        try {
+            setLoading(true)
+            await axios.delete(`${url}api/contacts/${props.contact._id}`);
+            console.log(`user deleted`);
+        } catch(error) {
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     function closeModal() {
         handleOpen(!modalOpen)
+        setContact(INITIAL_CONTACT)
      }
 
         return (
@@ -57,17 +79,18 @@ function Contact(props) {
                 open={modalOpen}  
                 className="editContactFrom"          
             >
-
-                     <Form error={Boolean(error)} loading={loading}>
+                <Segment>
+                    <Header>Edit Contact</Header>
+                     <Form error={Boolean(error)} loading={loading} onSubmit={handleEdit}>
                         <Form.Input 
                             fluid
                             icon="address book"
                             iconPosition="left"
                             label="Name"
                             placeholder="Name"
-                            name="Name"
-                            value={props.contact.name}
-                            onChange={handleEdit}
+                            name="name"
+                            value={contact.name}
+                            onChange={handleContactChange}
                         />
                         <Form.Input 
                             fluid
@@ -76,8 +99,8 @@ function Contact(props) {
                             label="Cell Phone"
                             placeholder="Cell Phone"
                             name="cellphone"
-                            value={props.contact.cellphone}
-                            onChange={handleEdit}
+                            value={contact.cellphone}
+                            onChange={handleContactChange}
                         />
                         <Form.Input 
                             fluid
@@ -86,8 +109,8 @@ function Contact(props) {
                             label="Work Phone"
                             placeholder="Work Phone"
                             name="workphone"
-                            value={props.contact.workphone}
-                            onChange={handleEdit}
+                            value={contact.workphone}
+                            onChange={handleContactChange}
                         />
                         <Form.Input 
                             fluid
@@ -96,8 +119,8 @@ function Contact(props) {
                             label="Home Phone"
                             placeholder="Home Phone"
                             name="homephone"
-                            value={props.contact.homephone}
-                            onChange={handleEdit}
+                            value={contact.homephone}
+                            onChange={handleContactChange}
                         />
                         <Form.Input 
                             fluid
@@ -106,27 +129,29 @@ function Contact(props) {
                             label="Email"
                             placeholder="Email"
                             name="email"
-                            value={props.contact.email}
-                            onChange={handleEdit}
+                            value={contact.email}
+                            onChange={handleContactChange}
                         />
                     
                         <Button
                             disabled={loading}
-                            icon="cancel"
+                            loading={loading}
+                            icon="upload"
                             type="submit"
                             color="green"
                             content="Save Changes"
-                            //onClick={closeModal}
                         />
                         <Button
                             disabled={loading}
-                            icon="upload"
+                            loading={loading}
+                            icon="cancel"
                             type="button"
                             color="red"
                             content="Cancel"
                             onClick={closeModal}
                         />
                     </Form>
+                </Segment>
                 </Modal>
 
                  <br /> <br />
@@ -138,12 +163,8 @@ function Contact(props) {
                     </p>
                     </Modal.Content>
                     <Modal.Actions>
-                    <Button color='red'>
-                        <Icon name='remove' /> No
-                    </Button>
-                    <Button color='green' onClick={handleDelete}>
-                        <Icon name='checkmark' /> Yes
-                    </Button>
+                    <Button color='red' icon="remove" content="No"/>
+                    <Button color='green' icon="checkmark" content="Yes" onClick={handleDelete} />
                     </Modal.Actions>    
                 </Modal>
                 <br /><br />
